@@ -107,7 +107,7 @@ LAMBDA_BOUNDARY = 200.0  # Quadratic penalty for not reaching final position
 THROUGHPUT_SCALE = 1.0   # Scale factor for throughput reward
 LAMBDA_PROXIMITY = 8.0   # Bonus weight for flying close to Source and Destination
 LAMBDA_MIDPOINT = 8.0    # Bonus weight for flying close to V-shape midpoint
-LAMBDA_LOITER = 5.0      # Bonus for hovering close to midpoint
+LAMBDA_LOITER = 8.0      # Bonus for hovering close to midpoint
 LOITER_RADIUS = 3.0      # Tight radius for loitering bonus (m)
 LANDING_STEPS = 5        # Number of final steps where UAV is forced to fly toward destination
 

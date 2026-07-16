@@ -362,10 +362,13 @@ class UAVEnvironment(gym.Env):
                 midpoint_bonus = cfg.LAMBDA_MIDPOINT * time_weight * (1.0 / (dist_mid + 1.0))
                 reward += midpoint_bonus
 
-                # Loitering bonus: reward being very close to midpoint (not just low speed)
+                # Loitering bonus: reward being close AND moving slowly
+                # Prevents overshoot spirals by requiring deceleration
                 if dist_mid < cfg.LOITER_RADIUS:
                     closeness = 1.0 - dist_mid / cfg.LOITER_RADIUS
-                    loiter_bonus = cfg.LAMBDA_LOITER * time_weight * closeness
+                    cur_speed = np.linalg.norm(self.velocities[m])
+                    speed_factor = max(0.0, 1.0 - cur_speed / cfg.V_MAX)
+                    loiter_bonus = cfg.LAMBDA_LOITER * time_weight * closeness * speed_factor
                     reward += loiter_bonus
 
             # Energy constraint penalty (causal, per slot)
